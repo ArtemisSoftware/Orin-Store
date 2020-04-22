@@ -1,5 +1,6 @@
 package com.artemissoftware.orionstore.util;
 
+import com.artemissoftware.orionstore.R;
 import com.artemissoftware.orionstore.models.Product;
 
 import java.math.BigDecimal;
@@ -12,9 +13,9 @@ import java.util.HashMap;
 
 public class Products {
 
-    public Product[] PRODUCTS = {/*RED_LAMP, YELLOW_LAMP, BLUE_MUG, WHITE_MUG, RED_MUG, BLACK_HAT, BLUE_HAT, WHITE_HAT, ORANGE_HAT,
+    public Product[] PRODUCTS = {RED_LAMP, YELLOW_LAMP, BLUE_MUG, WHITE_MUG, RED_MUG, BLACK_HAT, BLUE_HAT, WHITE_HAT, ORANGE_HAT,
     WHITE_SHIRT_MALE, WHITE_SHIRT_FEMALE, BLACK_SHIRT_FEMALE, BLACK_SHIRT_MALE, GREY_FIDGET_SPINNER, GREEN_FIDGET_SPINNER, ICELAND_PICTURE
-    , ICEY_COAST_PICTURE, HAVASU_FALLS_PICTURE, FRANCE_MOUNTAINS_PICTURE, GREEN_HILLS_PICTURE*/};
+    , ICEY_COAST_PICTURE, HAVASU_FALLS_PICTURE, FRANCE_MOUNTAINS_PICTURE, GREEN_HILLS_PICTURE};
 
 
     public HashMap<String, Product> PRODUCT_MAP = new HashMap<>();
@@ -25,7 +26,7 @@ public class Products {
         }
 
     }
-/*
+
     public static final Product RED_LAMP = new Product("Red Lamp", "Red colored lamp, perfect for lighting up a room " +
             "and matching any red furniture.", R.drawable.red_lamp, new BigDecimal(10.99), new BigDecimal(9.50), 161,
             new BigDecimal(4.5), 1515611);
@@ -102,7 +103,7 @@ public class Products {
     public static final Product ICEY_COAST_PICTURE = new Product("An Image of the Icy Coast of Iceland", "Looking at this picture practically " +
             "makes you shiver! But it makes me appreciate warm weather.", R.drawable.icedfglrjioz, new BigDecimal(120), new BigDecimal(0), 37,
             new BigDecimal(3.3), 1145614);
-    */
+
 }
 
 
