@@ -35,7 +35,7 @@ dependencies {
 
 
     //recyclerview
-    //implementation 'com.android.support:recyclerview-v7:27.0.2'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     //Support Design Library
     //implementation 'com.android.support:design:27.0.2'
