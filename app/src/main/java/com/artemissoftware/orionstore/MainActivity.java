@@ -2,6 +2,7 @@ package com.artemissoftware.orionstore;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
@@ -17,7 +18,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+        init();
     }
 
+    private void init(){
+        ViewProductFragment fragment = new ViewProductFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_container, fragment, getString(R.string.fragment_view_product));
+        transaction.commit();
+    }
 
 }

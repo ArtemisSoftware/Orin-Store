@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
-    <!--
+
     <data>
-        <import type="pluralsight.com.tabiangifts.util.BigDecimalUtil"/>
-        <import type="pluralsight.com.tabiangifts.util.StringUtil"/>
+        <import type="com.artemissoftware.orionstore.util.BigDecimalUtil"/>
+        <import type="com.artemissoftware.orionstore.util.StringUtil"/>
         <import type="android.view.View"/>
 
         <variable
             name="product"
-            type="pluralsight.com.tabiangifts.models.Product"/>
+            type="com.artemissoftware.orionstore.models.Product"/>
+
         <variable
             name="qty"
             type="int"/>
 
     </data>
-    -->
+
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/White">
 
-<!--
+
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -39,6 +40,10 @@
                 android:layout_marginTop="5dp">
 
 
+                <!--
+                alternative to maintain int type
+                android:text="@{String.valueOf(product.num_ratings)}"
+                -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -181,6 +186,6 @@
 
         </LinearLayout>
 
-    -->
+
     </RelativeLayout>
 </layout>

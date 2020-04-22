@@ -1,7 +1,5 @@
 package com.artemissoftware.orionstore;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,12 +26,12 @@ public class ViewProductFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = FragmentViewProductBinding.inflate(inflater);
 
-        /*
+
         Products products = new Products();
         mBinding.setProduct(products.PRODUCTS[0]);
 
         mBinding.setQty(1);
-        */
+
 
         return mBinding.getRoot();
     }
