@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.artemissoftware.orionstore.databinding.ActivityMainBinding;
 
+
 public class MainActivity extends AppCompatActivity {
 
     //data binding
@@ -23,9 +24,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init(){
+        /*
         ViewProductFragment fragment = new ViewProductFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_container, fragment, getString(R.string.fragment_view_product));
+        transaction.commit();
+        */
+
+        MainFragment fragment = new MainFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_container, fragment, getString(R.string.fragment_main));
         transaction.commit();
     }
 

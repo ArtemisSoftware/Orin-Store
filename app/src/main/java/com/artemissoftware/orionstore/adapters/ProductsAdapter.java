@@ -5,7 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.artemissoftware.orionstore.R;
+import com.artemissoftware.orionstore.databinding.ProductItemBinding;
 import com.artemissoftware.orionstore.models.Product;
 
 import java.util.ArrayList;
@@ -34,19 +39,21 @@ public class ProductsAdapter extends  RecyclerView.Adapter<ProductsAdapter.Bindi
 
     @Override
     public BindingHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        ViewDataBinding binding = DataBindingUtil.inflate(
-//                LayoutInflater.from(mContext), R.layout.product_item, parent, false);
-        //ProductItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.product_item, parent, false);
 
-        return null;//new BindingHolder(binding.getRoot());
+        //ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.product_item, parent, false);
+
+        ProductItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.product_item, parent, false);
+
+        return new BindingHolder(binding.getRoot());
     }
 
     @Override
     public void onBindViewHolder(BindingHolder holder, int position) {
+
         Product product = mProducts.get(position);
-        //holder.binding.setProduct(product);
+        holder.binding.setProduct(product);
 //        holder.binding.setVariable(BR.product, product);
-        //holder.binding.executePendingBindings();
+        holder.binding.executePendingBindings();
     }
 
     @Override
@@ -59,11 +66,11 @@ public class ProductsAdapter extends  RecyclerView.Adapter<ProductsAdapter.Bindi
     public class BindingHolder extends RecyclerView.ViewHolder{
 
 //        ViewDataBinding binding;
-        //ProductItemBinding binding;
+        ProductItemBinding binding;
 
         public BindingHolder(View itemView) {
             super(itemView);
-            //binding = DataBindingUtil.bind(itemView);
+            binding = DataBindingUtil.bind(itemView);
         }
     }
 

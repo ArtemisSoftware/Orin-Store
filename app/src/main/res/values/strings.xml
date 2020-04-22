@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">OrionStore</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="fragment_view_product">Product</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="fragment_main">Mian</string>
 </resources>
