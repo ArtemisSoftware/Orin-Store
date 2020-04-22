@@ -13,7 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.artemissoftware.orionstore.adapters.ProductsAdapter;
 import com.artemissoftware.orionstore.databinding.FragmentMainBinding;
+import com.artemissoftware.orionstore.models.Product;
+import com.artemissoftware.orionstore.util.Products;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
@@ -29,19 +36,36 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         mBinding = FragmentMainBinding.inflate(inflater);
         mBinding.swipeRefreshLayout.setOnRefreshListener(this);
 
+        setupProductsList();
+
         return mBinding.getRoot();
     }
 
+
+    private void setupProductsList() {
+
+        Products products = new Products();
+
+        List<Product> productList = new ArrayList<>();
+        productList.addAll(Arrays.asList(products.PRODUCTS));
+        mBinding.setProducts(productList);
+    }
 
 
     @Override
     public void onRefresh() {
 
+        Products products = new Products();
+        List<Product> productList = new ArrayList<>();
+        productList.addAll(Arrays.asList(products.PRODUCTS));
+
+        ((ProductsAdapter) mBinding.recyclervView.getAdapter()).refreshList(productList);
+
         onItemsLoadComplete();
     }
 
     void onItemsLoadComplete() {
-        //(mBinding.recyclervView.getAdapter()).notifyDataSetChanged();
-        //mBinding.swipeRefreshLayout.setRefreshing(false);
+        (mBinding.recyclervView.getAdapter()).notifyDataSetChanged();
+        mBinding.swipeRefreshLayout.setRefreshing(false);
     }
 }

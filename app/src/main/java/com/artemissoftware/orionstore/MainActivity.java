@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.artemissoftware.orionstore.databinding.ActivityMainBinding;
 
 
+
 public class MainActivity extends AppCompatActivity {
 
     //data binding
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
         init();
     }
+
+
 
     private void init(){
         /*
