@@ -7,12 +7,8 @@
         <import type="android.view.View"/>
 
         <variable
-            name="product"
-            type="com.artemissoftware.orionstore.models.Product"/>
-
-        <variable
-            name="qty"
-            type="int"/>
+            name="productView"
+            type="com.artemissoftware.orionstore.ProductViewModel"/>
 
     </data>
 
@@ -49,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
                     android:textColor="@color/DarkGrey"
-                    android:text="@{product.getNumberRatingsString()}"
+                    android:text="@{productView.product.getNumberRatingsString()}"
                     android:id="@+id/num_ratings"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
@@ -64,7 +60,7 @@
                     android:scaleX="1.2"
                     android:scaleY="1.2"
                     android:numStars="5"
-                    android:rating="@{BigDecimalUtil.getFloat(product.rating)}"
+                    android:rating="@{BigDecimalUtil.getFloat(productView.product.rating)}"
                     android:id="@+id/rating"
                     android:isIndicator="true"
                     android:layout_toLeftOf="@+id/num_ratings"
@@ -78,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/title"
                 android:textColor="@color/Black"
-                android:text="@{product.title}"
+                android:text="@{productView.product.title}"
                 android:textSize="14sp"
                 android:layout_marginTop="5dp"/>
 
@@ -95,7 +91,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:id="@+id/image"
-                    app:imageUrl="@{product.image}"/>
+                    app:imageUrl="@{productView.product.image}"/>
 
             </RelativeLayout>
 
@@ -116,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:textColor="@color/red2"
-                    android:text="@{product.hasSalePrice() ?  BigDecimalUtil.getValue(product.sale_price) : BigDecimalUtil.getValue(product.price)}"
+                    android:text="@{productView.product.hasSalePrice() ?  BigDecimalUtil.getValue(productView.product.sale_price) : BigDecimalUtil.getValue(productView.product.price)}"
                     android:id="@+id/price"/>
 
 
@@ -125,10 +121,10 @@
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
                     android:textColor="@color/DarkGrey"
-                    android:text="@{BigDecimalUtil.getValue(product.price)}"
+                    android:text="@{BigDecimalUtil.getValue(productView.product.price)}"
                     android:id="@+id/original_price"
                     android:layout_marginLeft="10dp"
-                    android:visibility="@{product.hasSalePrice() ? View.VISIBLE  : View.GONE}"
+                    android:visibility="@{productView.product.hasSalePrice() ? View.VISIBLE  : View.GONE}"
                     android:background="@drawable/strike_through"/>
 
             </LinearLayout>
@@ -148,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:textColor="@color/Black"
-                    android:text="@{StringUtil.getQuantityString(qty)}"
+                    android:text="@{StringUtil.getQuantityString(productView.quantity)}"
                     android:id="@+id/quantity"/>
 
                 <ImageView
