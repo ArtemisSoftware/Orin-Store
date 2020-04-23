@@ -177,7 +177,8 @@
                 android:padding="12dp"
                 android:layout_marginTop="13dp"
                 android:background="@drawable/orange_rounded_button"
-                android:id="@+id/add_to_cart">
+                android:id="@+id/add_to_cart"
+                android:onClick="@{() -> iMainActivity.addToCart(productView.product, productView.quantity)}">
 
                 <TextView
                     android:layout_width="wrap_content"
