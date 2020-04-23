@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.artemissoftware.orionstore.databinding.FragmentViewProductBinding;
+import com.artemissoftware.orionstore.models.Product;
 import com.artemissoftware.orionstore.util.Products;
 
 
@@ -21,17 +22,26 @@ public class ViewProductFragment extends Fragment{
     // Data binding
     FragmentViewProductBinding mBinding;
 
+    private Product mProduct;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle bundle = this.getArguments();
+
+        if(bundle != null){
+            mProduct = bundle.getParcelable(getString(R.string.intent_product));
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = FragmentViewProductBinding.inflate(inflater);
 
-
-        Products products = new Products();
-        mBinding.setProduct(products.PRODUCTS[0]);
-
+        mBinding.setProduct(mProduct);
         mBinding.setQty(1);
-
 
         return mBinding.getRoot();
     }

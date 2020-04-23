@@ -5,4 +5,5 @@
 
 
     <string name="fragment_main">Mian</string>
+    <string name="intent_product">product</string>
 </resources>

@@ -10,11 +10,19 @@
         <variable
             name="product"
             type="com.artemissoftware.orionstore.models.Product"/>
-        
+
         <variable
-            name="testUrl"
-            type="String" />
-        
+            name="iMainActivity"
+            type="com.artemissoftware.orionstore.IMainActivity"/>
+
+        <!--
+            Alternativa para imagens com a origem num url
+
+            <variable
+                name="testUrl"
+                type="String" />
+        -->
+
     </data>
 
     <LinearLayout
@@ -23,14 +31,14 @@
         android:layout_height="300dp"
         android:padding="10dp"
         android:background="@drawable/grey_border"
-        android:id="@+id/item_container">
+        android:id="@+id/item_container"
+        android:onClick="@{() -> iMainActivity.inflateViewProductFragment(product) }" >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="150dp">
 
             <!--
-
             Alternativa para imagens com a origem num url
             app:imageUrl="@{testUrl}"
             -->

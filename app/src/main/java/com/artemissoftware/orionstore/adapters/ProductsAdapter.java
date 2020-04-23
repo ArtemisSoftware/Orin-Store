@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.artemissoftware.orionstore.IMainActivity;
 import com.artemissoftware.orionstore.R;
 import com.artemissoftware.orionstore.databinding.ProductItemBinding;
 import com.artemissoftware.orionstore.models.Product;
@@ -52,6 +53,7 @@ public class ProductsAdapter extends  RecyclerView.Adapter<ProductsAdapter.Bindi
 
         Product product = mProducts.get(position);
         holder.binding.setProduct(product);
+        holder.binding.setIMainActivity((IMainActivity) mContext);
 
         //when image comes from url
         //holder.binding.setTestUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Uranometria_orion.jpg/500px-Uranometria_orion.jpg");
