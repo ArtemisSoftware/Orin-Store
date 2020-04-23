@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.artemissoftware.orionstore.databinding.FragmentViewProductBinding;
 import com.artemissoftware.orionstore.models.Product;
-import com.artemissoftware.orionstore.util.Products;
+import com.artemissoftware.orionstore.models.ProductViewModel;
 
 
 public class ViewProductFragment extends Fragment{

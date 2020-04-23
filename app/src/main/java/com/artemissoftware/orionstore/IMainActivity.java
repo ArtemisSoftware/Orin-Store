@@ -11,4 +11,8 @@ public interface IMainActivity {
     void setQuantity(int quantity);
 
     void addToCart(Product product, int quantity);
+
+    void inflateViewCartFragment();
+
+    void setCartVisibility(boolean visibility);
 }

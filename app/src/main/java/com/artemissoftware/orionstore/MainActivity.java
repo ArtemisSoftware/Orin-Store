@@ -8,13 +8,20 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import com.artemissoftware.orionstore.databinding.ActivityMainBinding;
+import com.artemissoftware.orionstore.models.CartItem;
+import com.artemissoftware.orionstore.models.CartViewModel;
 import com.artemissoftware.orionstore.models.Product;
 import com.artemissoftware.orionstore.util.PreferenceKeys;
+import com.artemissoftware.orionstore.util.Products;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -30,9 +37,10 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
         super.onCreate(savedInstanceState);
 
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        mainBinding.cart.setOnTouchListener(new CartTouchListener());
 
-        init();
         getShoppingCart();
+        init();
     }
 
 
@@ -51,8 +59,33 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
         SharedPreferences preferences = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         Set<String> serialNumbers = preferences.getStringSet(PreferenceKeys.shopping_cart, new HashSet<String>());
 
-        mainBinding.setNumCartItems(serialNumbers.size());
+        Products products = new Products();
+        List<CartItem> cartItems = new ArrayList<>();
+
+        for(String serialNumber : serialNumbers){
+            int quantity = preferences.getInt(serialNumber, 0);
+
+            cartItems.add(new CartItem(products.PRODUCT_MAP.get(serialNumber), quantity));
+        }
+
+        CartViewModel viewModel = new CartViewModel();
+        viewModel.setCart(cartItems);
+
+        try {
+
+            viewModel.setCartVisible(mainBinding.getCartView().isCartVisible());
+        }
+        catch (NullPointerException e){
+            Log.e(TAG, "getShoppingCart: " + e.getMessage());
+        }
+
+        mainBinding.setCartView(viewModel);
     }
+
+
+
+
+
 
 
     @Override
@@ -92,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
 
     @Override
     public void addToCart(Product product, int quantity) {
+
         SharedPreferences preferences = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
@@ -112,4 +146,47 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
 
         getShoppingCart();
     }
+
+    @Override
+    public void inflateViewCartFragment() {
+        ViewCartFragment fragment = (ViewCartFragment)getSupportFragmentManager().findFragmentByTag(getString(R.string.fragment_view_cart));
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        if(fragment == null){
+
+            fragment = new ViewCartFragment();
+            transaction.replace(R.id.main_container, fragment, getString(R.string.fragment_view_cart));
+            transaction.addToBackStack(getString(R.string.fragment_view_cart));
+            transaction.commit();
+        }
+    }
+
+    @Override
+    public void setCartVisibility(boolean visibility) {
+        mainBinding.getCartView().setCartVisible(visibility);
+    }
+
+
+    public static class CartTouchListener implements View.OnTouchListener{
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+
+            if(event.getAction() == MotionEvent.ACTION_UP){
+                v.setBackgroundColor(v.getContext().getResources().getColor(R.color.blue4));
+                v.performClick();
+
+                IMainActivity iMainActivity = (IMainActivity) v.getContext();
+                iMainActivity.inflateViewCartFragment();
+            }
+            else if(event.getAction() == MotionEvent.ACTION_DOWN){
+                v.setBackgroundColor(v.getContext().getResources().getColor(R.color.blue6));
+            }
+
+            return true;
+        }
+    }
+
+
+
 }

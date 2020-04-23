@@ -1,4 +1,4 @@
-package com.artemissoftware.orionstore;
+package com.artemissoftware.orionstore.models;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
