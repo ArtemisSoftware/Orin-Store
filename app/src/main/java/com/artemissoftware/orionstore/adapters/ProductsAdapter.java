@@ -52,6 +52,9 @@ public class ProductsAdapter extends  RecyclerView.Adapter<ProductsAdapter.Bindi
 
         Product product = mProducts.get(position);
         holder.binding.setProduct(product);
+
+        //when image comes from url
+        //holder.binding.setTestUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Uranometria_orion.jpg/500px-Uranometria_orion.jpg");
 //        holder.binding.setVariable(BR.product, product);
         holder.binding.executePendingBindings();
     }

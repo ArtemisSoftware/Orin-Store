@@ -10,6 +10,11 @@
         <variable
             name="product"
             type="com.artemissoftware.orionstore.models.Product"/>
+        
+        <variable
+            name="testUrl"
+            type="String" />
+        
     </data>
 
     <LinearLayout
@@ -24,6 +29,12 @@
             android:layout_width="match_parent"
             android:layout_height="150dp">
 
+            <!--
+
+            Alternativa para imagens com a origem num url
+            app:imageUrl="@{testUrl}"
+            -->
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -31,7 +42,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:id="@+id/image"
-                android:src="@{product.image}"/>
+                app:imageUrl="@{product.image}"/>
 
         </RelativeLayout>
 
