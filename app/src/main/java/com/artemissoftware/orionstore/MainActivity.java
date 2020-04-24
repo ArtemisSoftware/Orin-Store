@@ -166,6 +166,48 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
         mainBinding.getCartView().setCartVisible(visibility);
     }
 
+    @Override
+    public void updateQuantity(Product product, int quantity) {
+
+        SharedPreferences preferences = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        int currentQuantity = preferences.getInt(String.valueOf(product.getSerial_number()), 0);
+        editor.putInt(String.valueOf(product.getSerial_number()), (currentQuantity + quantity));
+        editor.commit();
+
+        getShoppingCart();
+    }
+
+    @Override
+    public void removeCartItem(CartItem cartItem) {
+        SharedPreferences preferences = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.remove(String.valueOf(cartItem.getProduct().getSerial_number()));
+        editor.commit();
+
+        Set<String> serialNumbers = preferences.getStringSet(PreferenceKeys.shopping_cart, new HashSet<String>());
+
+        if(serialNumbers.size() == 1){
+            editor.remove(PreferenceKeys.shopping_cart);
+            editor.commit();
+        }
+        else{
+            serialNumbers.remove(String.valueOf(cartItem.getProduct().getSerial_number()));
+            editor.putStringSet(PreferenceKeys.shopping_cart, serialNumbers);
+            editor.commit();
+        }
+
+        getShoppingCart();
+
+        ViewCartFragment fragment = (ViewCartFragment)getSupportFragmentManager().findFragmentByTag(getString(R.string.fragment_view_cart));
+
+        if(fragment != null){
+            fragment.updateCartItems();
+        }
+    }
+
 
     public static class CartTouchListener implements View.OnTouchListener{
 

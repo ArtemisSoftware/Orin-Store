@@ -1,5 +1,6 @@
 package com.artemissoftware.orionstore;
 
+import com.artemissoftware.orionstore.models.CartItem;
 import com.artemissoftware.orionstore.models.Product;
 
 public interface IMainActivity {
@@ -15,4 +16,8 @@ public interface IMainActivity {
     void inflateViewCartFragment();
 
     void setCartVisibility(boolean visibility);
+
+    void updateQuantity(Product product, int quantity);
+
+    void removeCartItem(CartItem cartItem);
 }

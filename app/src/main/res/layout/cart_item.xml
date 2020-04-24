@@ -108,7 +108,8 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:id="@+id/increase_quantity"
-                android:background="@drawable/grey_rounded_button">
+                android:background="@drawable/grey_rounded_button"
+                android:onClick="@{() -> cartItemView.increaseQuantity(context)}">
 
                 <ImageView
                     android:layout_width="20dp"
@@ -124,7 +125,8 @@
                 android:padding="10dp"
                 android:id="@+id/decrease_quantity"
                 android:background="@drawable/grey_rounded_button"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:onClick="@{() -> cartItemView.decreaseQuantity(context)}">
 
                 <ImageView
                     android:layout_width="20dp"

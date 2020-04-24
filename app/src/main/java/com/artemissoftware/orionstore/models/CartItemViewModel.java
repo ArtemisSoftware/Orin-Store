@@ -1,10 +1,13 @@
 package com.artemissoftware.orionstore.models;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
+
+import com.artemissoftware.orionstore.IMainActivity;
 
 
 public class CartItemViewModel extends BaseObservable {
@@ -29,6 +32,35 @@ public class CartItemViewModel extends BaseObservable {
         return ("Qty: " + String.valueOf(cartItem.getQuantity()));
     }
 
+
+    public void increaseQuantity(Context context){
+
+        CartItem cartItem = getCartItem();
+        cartItem.setQuantity(cartItem.getQuantity() + 1);
+        setCartItem(cartItem);
+        IMainActivity iMainActivity = (IMainActivity) context;
+        iMainActivity.updateQuantity(cartItem.getProduct(), 1);
+    }
+
+    public void decreaseQuantity(Context context){
+
+        CartItem cartItem = getCartItem();
+        IMainActivity iMainActivity = (IMainActivity) context;
+
+        if(cartItem.getQuantity() > 1) {
+
+            cartItem.setQuantity(cartItem.getQuantity() - 1);
+            setCartItem(cartItem);
+
+
+            iMainActivity.updateQuantity(cartItem.getProduct(), -1);
+        }
+        else if(cartItem.getQuantity() == 1){
+            cartItem.setQuantity(cartItem.getQuantity() -1);
+            setCartItem(cartItem);
+            iMainActivity.removeCartItem(cartItem);
+        }
+    }
 }
 
 
