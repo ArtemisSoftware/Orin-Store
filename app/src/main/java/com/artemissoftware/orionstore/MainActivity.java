@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,12 +33,19 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
     //data binding
     ActivityMainBinding mainBinding;
 
+    //vars
+    private boolean mClickToExit = false;
+    private Runnable mCheckoutRunnable;
+    private Handler mCheckoutHandler;
+    private int mCheckoutTimer = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mainBinding.cart.setOnTouchListener(new CartTouchListener());
+        mainBinding.proceedToCheckout.setOnClickListener(mCheckoutListener);
 
         getShoppingCart();
         init();
@@ -83,9 +91,58 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
     }
 
 
+    public void checkout(){
+
+        mainBinding.progressBar.setVisibility(View.VISIBLE);
+
+        mCheckoutHandler = new Handler();
+
+        mCheckoutRunnable = new Runnable() {
+            @Override
+            public void run() {
+                mCheckoutHandler.postDelayed(mCheckoutRunnable, 200);
+                mCheckoutTimer += 200;
+
+                if(mCheckoutTimer >= 1600){
+                    emptyCart();
+                    mainBinding.progressBar.setVisibility(View.GONE);
+                    mCheckoutHandler.removeCallbacks(mCheckoutRunnable);
+                    mCheckoutTimer = 0;
+                }
+            }
+        };
+
+        mCheckoutRunnable.run();
+    }
+
+    public void emptyCart() {
+
+        SharedPreferences preferences = this.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        Set<String> serialNumbers = preferences.getStringSet(PreferenceKeys.shopping_cart, new HashSet<String>());
+
+        for(String serialNumber : serialNumbers){
+            editor.remove(serialNumber);
+            editor.commit();
+        }
+
+        editor.remove(PreferenceKeys.shopping_cart);
+        editor.commit();
+
+        Toast.makeText(this, "Thanks for shopping!", Toast.LENGTH_SHORT).show();
+        removeViewCartFragment();
+        getShoppingCart();
+    }
 
 
+    public View.OnClickListener mCheckoutListener = new  View.OnClickListener(){
 
+        @Override
+        public void onClick(View v) {
+            checkout();
+        }
+    };
 
 
     @Override
@@ -207,6 +264,18 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
             fragment.updateCartItems();
         }
     }
+
+
+    public void removeViewCartFragment(){
+        getSupportFragmentManager().popBackStack();
+        ViewCartFragment fragment = (ViewCartFragment) getSupportFragmentManager().findFragmentByTag(getString(R.string.fragment_view_cart));
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if(fragment != null){
+            transaction.remove(fragment);
+            transaction.commit();
+        }
+    }
+
 
 
     public static class CartTouchListener implements View.OnTouchListener{
